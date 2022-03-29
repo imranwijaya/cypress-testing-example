@@ -16,7 +16,7 @@ describe('Customer List Functionality', () => {
   });
   
   context('Table data', () => {
-    const data = ['1', 'Imran Wijaya', 'imran@', '081214979224', 'imran@dreite.co.id', '09/Nov/2020 23:46:09'];
+    const data = ['1', 'John Doe', 'address of john doe', '08123456789', 'john@doe.com', '09/Nov/2020 23:46:09'];
 
     beforeEach(() => {
       cy.login();
@@ -37,7 +37,7 @@ describe('Customer List Functionality', () => {
     });
 
     it('navigate to /customer/add on successful button click', () => {
-      cy.get('[data-cy=button-add]').click();
+      cy.get('[data-cy=button-add]').trigger('mouseover').click();
       cy.hash().should('eq', '');
     })
   });
