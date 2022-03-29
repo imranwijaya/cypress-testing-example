@@ -1,12 +1,12 @@
 {
-  "name": "express.cypress.testing",
+  "name": "cypress.testing.example",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "cypress:open": "set CYPRESS_CRASH_REPORTS=0&&cypress open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Imran Wijaya",
   "license": "ISC",
   "description": "",
   "devDependencies": {
