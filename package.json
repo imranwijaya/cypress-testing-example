@@ -1,0 +1,15 @@
+{
+  "name": "express.cypress.testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "set CYPRESS_CRASH_REPORTS=0&&cypress open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^9.5.2"
+  }
+}
