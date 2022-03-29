@@ -1,5 +1,5 @@
 export const config = {
-  "baseUrl": "http://localhost:64100/admin",
+  "baseUrl": "https://testing.example.abangkito.com/admin",
   "username": "super@testing.com",
   "password": "super@testing.com",
 }
