@@ -7,8 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Imran Wijaya",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imranwijaya/cypress.testing.example.git"
+  },
   "license": "ISC",
-  "description": "",
+  "description": "End to end testing using cypress.io - ExpressJS web based",
+  "keywords": [
+    "cypress",
+    "node",
+    "javascript"
+  ],
   "devDependencies": {
     "cypress": "^9.5.2"
   }

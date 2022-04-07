@@ -3,4 +3,6 @@
 # dependencies
 /node_modules
 
-GIT.md
+*.md
+*.zip
+!README.md
