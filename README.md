@@ -1,4 +1,4 @@
-This is an [e2e testing project example](https://github.com/imranwijaya/cypress.testing.example) for [cypress.testing.abangkito.com website](https://cypress.testing.abangkito.com) using [`Cypress.io`](https://www.cypress.io/).
+This is an [e2e testing project example](https://github.com/imranwijaya/cypress.testing.example) for [cypress.testing.abangkito.com website](https://cypress.testing.abangkito.com/admin) using [`Cypress.io`](https://www.cypress.io/).
 
 ## Getting Started
 
