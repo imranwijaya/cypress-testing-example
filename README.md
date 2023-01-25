@@ -13,7 +13,7 @@ First, clone the [repository](https://github.com/imranwijaya/cypress.testing.exa
 git clone https://github.com/imranwijaya/cypress.testing.example.git
 
 #after successful clone
-npm run install
+npm install
 ```
 
 Open cypress with following command:
