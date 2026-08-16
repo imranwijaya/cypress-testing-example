@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.scrollback": 100000000
+}
