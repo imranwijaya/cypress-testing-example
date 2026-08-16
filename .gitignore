@@ -5,5 +5,7 @@
 
 *.md
 *.zip
+.env*
+!.env.example
 cypress.env.json
 !README.md

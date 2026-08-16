@@ -1,25 +1,32 @@
 const { defineConfig } = require("cypress");
 const mysql = require("mysql2/promise");
+const env = require("./env.config");
 
 async function queryDb(query, config) {
-  // Create connection using configurations stored in env variables
   const connection = await mysql.createConnection(config);
 
   try {
     const [rows] = await connection.execute(query);
     return rows;
   } finally {
-    await connection.end(); // Always close the connection
+    await connection.end();
   }
 }
 
 module.exports = defineConfig({
   allowCypressEnv: false,
+
   e2e: {
     experimentalRunAllSpecs: true,
-    baseUrl: "https://project-for-testing.abangkito.com/admin",
+
+    baseUrl: env.baseUrl,
+
+    env: {
+      login: env.login,
+      db: env.db,
+    },
+
     setupNodeEvents(on, config) {
-      // implement node event listeners here
       on("task", {
         query(query) {
           return queryDb(query, config.env.db);
