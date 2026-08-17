@@ -1,4 +1,27 @@
 {
+  "name": "cypress-testing-example-v2",
+  "version": "2.0.0",
+  "description": "Web automation testing example using Cypress.",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run --e2e --browser chrome"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "test automation",
+    "testing",
+    "qa"
+  ],
+  "author": "Imran Wijaya",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imranwijaya/cypress-testing-example.git"
+  },
+  "engines": {
+    "node": ">=24"
+  },
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",
     "cypress": "^15.20.0",

@@ -1,0 +1,49 @@
+name: Cypress E2E
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cypress:
+    name: Cypress E2E
+    runs-on: ubuntu-24.04
+
+    env:
+      CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
+      CYPRESS_LOGIN_NAME: ${{ vars.CYPRESS_LOGIN_NAME }}
+      CYPRESS_LOGIN_EMAIL: ${{ vars.CYPRESS_LOGIN_EMAIL }}
+      CYPRESS_LOGIN_PASSWORD: ${{ vars.CYPRESS_LOGIN_PASSWORD }}
+
+      CYPRESS_DB_HOST: ${{ secrets.CYPRESS_DB_HOST }}
+      CYPRESS_DB_USER: ${{ secrets.CYPRESS_DB_USER }}
+      CYPRESS_DB_PASSWORD: ${{ secrets.CYPRESS_DB_PASSWORD }}
+      CYPRESS_DB_NAME: ${{ secrets.CYPRESS_DB_NAME }}
+      CYPRESS_DB_PORT: ${{ secrets.CYPRESS_DB_PORT }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run Cypress E2E tests
+        uses: cypress-io/github-action@v7
+        with:
+          browser: chrome
+          summary-title: Cypress E2E Tests
+
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Upload Cypress videos
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
