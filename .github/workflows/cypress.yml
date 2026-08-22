@@ -7,6 +7,17 @@ on:
   pull_request:
     branches:
       - main
+  repository_dispatch:
+    types:
+      - application-ci
+      - application-cd
+
+permissions:
+  contents: read
+
+run-name: >-
+  Cypress E2E —
+  ${{ github.event_name == 'repository_dispatch' && github.event.action || github.event_name }}
 
 jobs:
   cypress:
@@ -14,7 +25,11 @@ jobs:
     runs-on: ubuntu-24.04
 
     env:
-      CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
+      CYPRESS_BASE_URL: >-
+        ${{ github.event_name == 'repository_dispatch' &&
+            github.event.action == 'application-cd' &&
+            github.event.client_payload.base_url ||
+            vars.CYPRESS_BASE_URL }}
       CYPRESS_LOGIN_NAME: ${{ vars.CYPRESS_LOGIN_NAME }}
       CYPRESS_LOGIN_EMAIL: ${{ vars.CYPRESS_LOGIN_EMAIL }}
       CYPRESS_LOGIN_PASSWORD: ${{ vars.CYPRESS_LOGIN_PASSWORD }}
@@ -33,6 +48,48 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24
+
+      - name: Identify test trigger
+        id: trigger
+        shell: bash
+        run: |
+          case "${{ github.event_name }}" in
+            push)
+              echo "source=repository-push" >> "${GITHUB_OUTPUT}"
+              ;;
+            pull_request)
+              echo "source=repository-pull-request" >> "${GITHUB_OUTPUT}"
+              ;;
+            repository_dispatch)
+              echo "source=${{ github.event.action }}" >> "${GITHUB_OUTPUT}"
+              ;;
+            *)
+              echo "source=unknown" >> "${GITHUB_OUTPUT}"
+              exit 1
+              ;;
+          esac
+
+      - name: Validate deployed application URL
+        if: github.event_name == 'repository_dispatch' && github.event.action == 'application-cd'
+        shell: bash
+        run: |
+          test "${{ github.event.client_payload.base_url }}" = "https://project-for-testing.abangkito.com"
+
+      - name: Record test execution context
+        run: |
+          {
+            echo "## Cypress E2E Execution"
+            echo
+            echo "- Trigger: \`${{ steps.trigger.outputs.source }}\`"
+            echo "- Workflow event: \`${{ github.event_name }}\`"
+            echo "- Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+
+            if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+              echo "- Application SHA: \`${{ github.event.client_payload.application_sha }}\`"
+              echo "- Application ref: \`${{ github.event.client_payload.application_ref }}\`"
+              echo "- Application workflow: ${{ github.event.client_payload.application_run_url }}"
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
 
       - name: Run Cypress E2E tests
         uses: cypress-io/github-action@v7
