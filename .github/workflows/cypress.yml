@@ -9,7 +9,6 @@ on:
       - main
   repository_dispatch:
     types:
-      - application-ci
       - application-cd
 
 permissions:
