@@ -73,7 +73,7 @@ jobs:
         if: github.event_name == 'repository_dispatch' && github.event.action == 'application-cd'
         shell: bash
         run: |
-          test "${{ github.event.client_payload.base_url }}" = "https://project-for-testing.abangkito.com"
+          test "${{ github.event.client_payload.base_url }}" = "https://project-for-testing.abangkito.com/admin"
 
       - name: Record test execution context
         run: |
